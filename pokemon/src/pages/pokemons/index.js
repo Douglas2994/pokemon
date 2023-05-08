@@ -1,9 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import axios from "axios";
+import Modal from '@/components/Modal';
 
 
 export default function Pokemons() {
   const [teste, setTeste] = useState()
+  const [teste1, setTeste1] = useState()
+  const [teste2, setTeste2] = useState()
+  const [open, setOpen] = useState()
+
   useEffect(() => {
     axios
       .get(
@@ -17,7 +22,19 @@ export default function Pokemons() {
   return (
     <>
       <div style={{ display: "flex", justifyContent: "center" }}>
-        <p>Testando</p>
+        <div>
+          {
+            teste?.map((pokebola,index) => {
+              return (
+                <div key={index}>
+                  <p> {pokebola.name} </p>
+                 
+                </div>
+              )
+            })
+          }
+        </div>
+     
       </div>
     </>
   )

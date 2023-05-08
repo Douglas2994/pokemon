@@ -1,5 +1,13 @@
 import styled from "styled-components";
 
+// export const Container = styled.div`
+// background-image: url(pokemon.jpg);
+// background-repeat: no-repeat ;
+// width: 100%;
+// height: 100vh;
+
+// `
+
 export const Input = styled.input`
 // height: 30px;
 // border: 1px solid #ccc;

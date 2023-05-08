@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import axios from "axios";
 import { Input } from '../../styles/home';
 import Modal from '@/components/Modal';
@@ -8,9 +8,6 @@ export default function Home() {
   const [teste1, setTeste1] = useState()
   const [teste2, setTeste2] = useState()
   const [open, setOpen] = useState()
-
-
- 
 
   const searchPokemon = (pokemon) => {
     axios.get(`https://pokeapi.co/api/v2/pokemon/${pokemon}/`)
@@ -22,7 +19,6 @@ export default function Home() {
     setOpen(true)
   }
 
-  console.log(teste, "teste");
   console.log(teste1, "teste1");
 
   return (
@@ -32,38 +28,43 @@ export default function Home() {
         <button onClick={() => searchPokemon(teste2.toLowerCase())}>buscar</button>
         {open &&
           <Modal>
-            <div>
-              <p>Nome: {teste1?.name}</p>
-              <p>Posição: {teste1?.order}</p>
-              <p> Tipo: {teste1?.types[0].type?.name}</p>
+            <div style={{display:"flex", flexDirection:"row",width:'100%'}}>
               <div>
-                <p>Habilidades:</p>
+                <p>Nome: {teste1?.name}</p>
+                <p>Posição: {teste1?.order}</p>
+                <p> Tipo: {teste1?.types[0].type?.name}</p>
+                <div>
+                  <p>Habilidades:</p>
+                  <div>
+                    {
+                      teste1?.abilities.map((powers, index) => {
+                        return (
+                          <div key={index}>
+                            <p> {powers.ability.name} </p>
+                          </div>
+                        )
+                      })
+                    }
+                  </div>
+                </div>
                 <div>
                   {
-                    teste1?.abilities.map(powers => {
+                    teste1?.stats.map((teste, index) => {
                       return (
-                        <div>
-                          <p> {powers.ability.name} </p>
+                        <div key={index} style={{ display: 'flex' }}>
+                          <p> {teste.stat.name}: </p>
+                          <p> {teste.base_stat} </p>
+
                         </div>
                       )
                     })
                   }
                 </div>
+              
               </div>
               <div>
-                {
-                  teste1?.stats.map(teste => {
-                    return (
-                      <div style={{ display: 'flex' }}>
-                        <p> {teste.stat.name}: </p>
-                        <p> {teste.base_stat} </p>
-
-                      </div>
-                    )
-                  })
-                }
-              </div>
-              <img src={teste1?.sprites.other.dream_world.front_default} />
+                  <img src={teste1?.sprites.other.dream_world.front_default} />
+                </div>
             </div>
           </Modal>
         }
